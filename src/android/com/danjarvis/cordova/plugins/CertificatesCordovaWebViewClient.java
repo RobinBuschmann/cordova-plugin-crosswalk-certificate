@@ -3,6 +3,7 @@
  The MIT License (MIT)
  
  Copyright (c) 2014 Martin Reinhardt
+ Copyright (c) 2015 Daniel Jarvis
  
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -22,26 +23,34 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  SOFTWARE.
  
- Certificate Plugin for Cordova
+ Certificate Plugin for Cordova Compatibile with Crosswalk v10.x
  
  */
-package de.martinreinhardt.cordova.plugins;
+package com.danjarvis.cordova.plugins;
 
 import org.apache.cordova.CordovaInterface;
+import org.apache.cordova.CordovaWebView;
 import org.apache.cordova.CordovaWebViewClient;
 
 import android.net.http.SslError;
 import android.util.Log;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebView;
+import android.webkit.ValueCallback;
+import org.xwalk.core.XWalkView;
 
 /**
  * 
- * Certificates Cordova WebView Client
+ * Certificates Cordova XWalkView Client
  * 
- * author, Martin Reinhardt on 23.06.14.
+ * authors: Martin Reinhardt on 23.06.14
+ *          Daniel Jarvis updated on 2015-05-08
+ *
  * 
- * Copyright Martin Reinhardt 2014. All rights reserved.
+ * Copyright Martin Reinhardt 2014
+ * Copyright Daniel Jarvis 2015
+ *
+ * All rights reserved.
  * 
  */
 public class CertificatesCordovaWebViewClient extends CordovaWebViewClient {
@@ -49,16 +58,16 @@ public class CertificatesCordovaWebViewClient extends CordovaWebViewClient {
     /**
      * Logging Tag
      */
-    public static final String TAG = "CertificatesCordovaWebViewClient";
+    public static final String LOG_TAG = "CertificatesCordovaWebViewClient";
 
     private boolean allowUntrusted = false;
 
     /**
-     * 
      * @param cordova
+     * @param view
      */
-    public CertificatesCordovaWebViewClient(CordovaInterface cordova) {
-        super(cordova);
+    public CertificatesCordovaWebViewClient(CordovaInterface cordova, CordovaWebView view) {
+        super(cordova, view);
     }
 
     /**
@@ -70,8 +79,6 @@ public class CertificatesCordovaWebViewClient extends CordovaWebViewClient {
     }
 
     /**
-     * 
-     * 
      * @param pAllowUntrusted
      *            the allowUntrusted to set
      */
@@ -80,17 +87,14 @@ public class CertificatesCordovaWebViewClient extends CordovaWebViewClient {
     }
 
     /**
-     * @see org.apache.cordova.CordovaWebViewClient#onReceivedSslError(WebView,
-     *      SslErrorHandler, SslError)
+     * See: http://ivancevich.me/articles/ignoring-invalid-ssl-certificates-on-cordova-android-ios/
      */
     @Override
-    public void onReceivedSslError(WebView view, SslErrorHandler handler,
-            SslError error) {
-        Log.d(TAG, "onReceivedSslError. Proceed? " + isAllowUntrusted());
-        if (isAllowUntrusted()) {
-            handler.proceed();
-        } else {
-            handler.cancel();
-        }
+    public void onReceivedSslError(XWalkView view, ValueCallback<Boolean> callback, SslError error) {
+        Log.d(LOG_TAG, "Received SSL Error :: " + error.toString());
+        if (isAllowUntrusted())
+            callback.onReceiveValue(true);
+        else
+            callback.onReceiveValue(true);
     }
 }

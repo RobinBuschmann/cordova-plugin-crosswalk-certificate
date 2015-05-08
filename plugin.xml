@@ -2,7 +2,7 @@
 <!--
 The MIT License (MIT)
 
-Copyright (c) 2015 Martin Reinhardt
+Copyright (c) 2015 Martin Reinhardt, Dan Jarvis
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -24,18 +24,16 @@ SOFTWARE.
 -->
 
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
-           id="cordova-plugin-certificates"
-      version="0.5.0">
+        id="cordova-plugin-crosswalk-certificate"
+	    version="0.1.0">
 
-    <name>CDVCertificate</name>
-    <description>
-        Cordova Certificate Plugin
-    </description>
-    <author>Martin Reinhardt</author>
+    <name>CertificatesPlugin</name>
+    <author>Daniel Jarvis</author>
+    <description>Cordova plugin to enable the use of untrusted (self-signed) SSL Certificates with Crosswalk.</description>
     <license>MIT</license>
-    <keywords>cordova,certificates,ssl</keywords>
-    <repo>https://github.com/hypery2k/cordova-certificate-plugin.git</repo>
-    <issue>https://github.com/hypery2k/cordova-certificate-plugin/issues</issue>
+    <keywords>cordova,crosswalk,certificates,ssl</keywords>
+    <repo>https://github.com/danjarvis/cordova-plugin-crosswalk-certificate.git</repo>
+    <issue>https://github.com/danjarvis/cordova-plugin-crosswalk-certificate/issues</issue>
 
     <engines>
       <engine name="cordova" version=">=3.1.0" /><!-- Needs cordova/urlutil -->
@@ -47,29 +45,32 @@ SOFTWARE.
 
     <!-- ios -->
     <platform name="ios">
-        <config-file target="config.xml" parent="/*">
-    		<feature name="CDVCertificate">
-    			<param name="ios-package" value="CDVCertificate"/>
-    		</feature>
-        </config-file>
+      <config-file target="config.xml" parent="/*">
+        <feature name="CDVCertificate">
+          <param name="ios-package" value="CDVCertificate"/>
+        </feature>
+      </config-file>
 
-		<header-file src="src/ios/CDVCertificate.h" />
-		<source-file src="src/ios/CDVCertificate.m" />
+      <header-file src="src/ios/CDVCertificate.h" />
+      <source-file src="src/ios/CDVCertificate.m" />
 
-		<header-file src="src/ios/NSURLRequest+AllowUntrustedCertificates.h" />
-		<source-file src="src/ios/NSURLRequest+AllowUntrustedCertificates.m" />
+      <header-file src="src/ios/NSURLRequest+AllowUntrustedCertificates.h" />
+      <source-file src="src/ios/NSURLRequest+AllowUntrustedCertificates.m" />
     </platform>
 
     <!-- android -->
     <platform name="android">
-        <config-file target="res/xml/config.xml" parent="/*">            
-            <feature name="CertificatesPlugin" >
-                <param name="android-package" value="de.martinreinhardt.cordova.plugins.CertificatesPlugin"/>
-            </feature>
-        </config-file>
+      <config-file target="res/xml/config.xml" parent="/*">
+        <feature name="CertificatesPlugin" >
+          <param name="android-package" value="com.danjarvis.cordova.plugins.CertificatesPlugin" />
+        </feature>
+      </config-file>
 
-        <source-file src="src/android/de/martinreinhardt/cordova/plugins/CertificatesCordovaWebViewClient.java" target-dir="src/de/martinreinhardt/cordova/plugins/" />
-        <source-file src="src/android/de/martinreinhardt/cordova/plugins/CertificatesPlugin.java" target-dir="src/de/martinreinhardt/cordova/plugins/" />
+	  <source-file
+		  src="src/android/com/danjarvis/cordova/plugins/CertificatesCordovaWebViewClient.java"
+		  target-dir="src/com/danjarvis/cordova/plugins" />
+	  <source-file
+		  src="src/android/com/danjarvis/cordova/plugins/CertificatesPlugin.java"
+		  target-dir="src/com/danjarvis/cordova/plugins" />
     </platform>
-
 </plugin>

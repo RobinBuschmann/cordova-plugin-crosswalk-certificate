@@ -1,26 +1,29 @@
-# Certificate Plugin for Apache Cordova
+Cordova Plugin Crosswalk Certificate
+====================================
 
-[![Build Status](https://travis-ci.org/hypery2k/cordova-certificate-plugin.svg?branch=master)](https://travis-ci.org/hypery2k/cordova-certificate-plugin) [![Bountysource](https://www.bountysource.com/badge/tracker?tracker_id=2596540)](https://www.bountysource.com/trackers/2596540-hypery2k-cordova-certificate-plugin?utm_source=2596540&utm_medium=shield&utm_campaign=TRACKER_BADGE)
+[Cordova](http://cordova.apache.org) plugin to enable the use of untrusted (self-signed) SSL Certificates.
 
-> cordova Plugin to configure SSL Certificates, currently used to enable usage of untrusted  aka self-signed SSL certifcates
-
+This fork is compatible with the [crosswalk web view](https://crosswalk-project.org/) v10.x Support for crosswalk v11+ will be coming in a different fork or this plugin will get a major version bump.
 
 ## Install
 
+Install directly from git:
 ```
-cordova plugin add cordova-plugin-certificates
+cordova plugin add https://github.com/danjarvis/cordova-plugin-crosswalk-certificate
 ```
+
+Note: this plugin will be published to (NPM)[https://cordova.apache.org/announcements/2015/04/21/plugins-release-and-move-to-npm.html] shortly.
 
 ## Usage
 
 Activate insecure certificates
 ```
-cordova.plugins.certificates.trustUnsecureCerts(true)
+cordova.plugins.certificates.trustUnsecureCerts(true);
 ```
 
 Dectivate insecure certificates
 ```
-cordova.plugins.certificates.trustUnsecureCerts(false)
+cordova.plugins.certificates.trustUnsecureCerts(false);
 ```
 
 ## Development

@@ -3,6 +3,7 @@
  The MIT License (MIT)
  
  Copyright (c) 2014 Martin Reinhardt
+ Copyright (c) 2015 Daniel Jarvis
  
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -22,10 +23,10 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  SOFTWARE.
  
- Certificate Plugin for Cordova
+ Certificate Plugin for Cordova Compatibile with Crosswalk v10.x
  
  */
-package de.martinreinhardt.cordova.plugins;
+package com.danjarvis.cordova.plugins;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaActivity;
@@ -39,9 +40,13 @@ import android.util.Log;
  * 
  * Certificate Plugin for Cordova
  * 
- * author, Martin Reinhardt on 23.06.14.
+ * authors: Martin Reinhardt on 23.06.14
+ *          Daniel Jarvis updated on 2015-05-08
  * 
- * Copyright Martin Reinhardt 2014. All rights reserved.
+ * Copyright Martin Reinhardt 2014
+ * Copyright Daniel Jarvis 2015
+ *
+ * All rights reserved.
  * 
  */
 public class CertificatesPlugin extends CordovaPlugin {
@@ -78,13 +83,13 @@ public class CertificatesPlugin extends CordovaPlugin {
     @Override
     public boolean execute(String action, JSONArray args,
             CallbackContext callbackContext) throws JSONException {
-
+        
         if (action.equals("setUntrusted")) {
                 allowUntrusted = args.getBoolean(0);
-                Log.d(LOG_TAG, "Setting allowUntrusted to " + allowUntrusted);
                 cordova.getActivity().runOnUiThread(new Runnable() {
                         public void run() {
-                                CertificatesCordovaWebViewClient cWebClient = new CertificatesCordovaWebViewClient(cordova);
+                                CertificatesCordovaWebViewClient cWebClient =
+                                    new CertificatesCordovaWebViewClient(cordova, webView);
                                 cWebClient.setAllowUntrusted(allowUntrusted);
                                 webView.setWebViewClient(cWebClient);
                                 CordovaActivity ca = (CordovaActivity) cordova.getActivity();
