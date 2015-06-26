@@ -3,17 +3,23 @@ Cordova Plugin Crosswalk Certificate
 
 [Cordova](http://cordova.apache.org) plugin to enable the use of untrusted (self-signed) SSL Certificates.
 
-This fork is compatible with the [crosswalk web view](https://crosswalk-project.org/) v10.x used with cordova-android v3.6.x
-Support for crosswalk v11+ (cordova-android v4.x) will be coming in a different fork -- or this plugin will get a major version bump.
-
 ## Install
 
-Install directly from git:
+To use this plugin with cordova-android 3.x install v1.x, which is compatible with the [crosswalk web view](https://crosswalk-project.org/) v10.x used with cordova-android v3.x
+
+```
+cordova plugin add cordova-plugin-crosswalk-certificate@1.0.0
+```
+
+To use this plugin with cordova-android 4.x install v2.x, which is compatbile with the new [pluggable crosswalk webview](https://crosswalk-project.org/documentation/cordova/cordova_4.html)
+```
+cordova plugin add cordova-plugin-crosswalk-certificate@2.0.0
+```
+
+You can install the latest build directly from git:
 ```
 cordova plugin add https://github.com/danjarvis/cordova-plugin-crosswalk-certificate
 ```
-
-Note: this plugin will be published to [NPM](https://cordova.apache.org/announcements/2015/04/21/plugins-release-and-move-to-npm.html) shortly.
 
 ## Usage
 
