@@ -95,6 +95,6 @@ public class CertificatesCordovaWebViewClient extends CordovaWebViewClient {
         if (isAllowUntrusted())
             callback.onReceiveValue(true);
         else
-            callback.onReceiveValue(true);
+            callback.onReceiveValue(false);
     }
 }
