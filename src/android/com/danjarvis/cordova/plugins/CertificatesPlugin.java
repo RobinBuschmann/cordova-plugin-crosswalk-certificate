@@ -31,8 +31,13 @@ package com.danjarvis.cordova.plugins;
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaActivity;
 import org.apache.cordova.CordovaPlugin;
+import org.apache.cordova.CordovaWebViewImpl;
+import org.apache.cordova.CordovaWebViewEngine;
 import org.json.JSONArray;
 import org.json.JSONException;
+
+import org.crosswalk.engine.XWalkWebViewEngine;
+import org.crosswalk.engine.XWalkCordovaView;
 
 import android.util.Log;
 
@@ -88,12 +93,14 @@ public class CertificatesPlugin extends CordovaPlugin {
                 allowUntrusted = args.getBoolean(0);
                 cordova.getActivity().runOnUiThread(new Runnable() {
                         public void run() {
-                                CertificatesCordovaWebViewClient cWebClient =
-                                    new CertificatesCordovaWebViewClient(cordova, webView);
-                                cWebClient.setAllowUntrusted(allowUntrusted);
-                                webView.setWebViewClient(cWebClient);
-                                CordovaActivity ca = (CordovaActivity) cordova.getActivity();
-                                ca.clearCache();
+                            CordovaActivity ca = (CordovaActivity) cordova.getActivity();
+                            XWalkCordovaView view = (XWalkCordovaView)webView.getView();
+                            CertificatesCordovaWebViewClient cWebClient =
+                                new CertificatesCordovaWebViewClient((XWalkWebViewEngine)webView.getEngine());
+
+                            cWebClient.setAllowUntrusted(allowUntrusted);
+                            webView.clearCache();
+                            view.setResourceClient(cWebClient);
                         }
                 });
                 callbackContext.success();

@@ -30,14 +30,18 @@ package com.danjarvis.cordova.plugins;
 
 import org.apache.cordova.CordovaInterface;
 import org.apache.cordova.CordovaWebView;
-import org.apache.cordova.CordovaWebViewClient;
 
 import android.net.http.SslError;
 import android.util.Log;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebView;
 import android.webkit.ValueCallback;
+
 import org.xwalk.core.XWalkView;
+import org.xwalk.core.XWalkResourceClient;
+
+import org.crosswalk.engine.XWalkCordovaResourceClient;
+import org.crosswalk.engine.XWalkWebViewEngine;
 
 /**
  * 
@@ -53,7 +57,7 @@ import org.xwalk.core.XWalkView;
  * All rights reserved.
  * 
  */
-public class CertificatesCordovaWebViewClient extends CordovaWebViewClient {
+public class CertificatesCordovaWebViewClient extends XWalkCordovaResourceClient {
 
     /**
      * Logging Tag
@@ -63,11 +67,10 @@ public class CertificatesCordovaWebViewClient extends CordovaWebViewClient {
     private boolean allowUntrusted = false;
 
     /**
-     * @param cordova
-     * @param view
+     * @param parentEngine
      */
-    public CertificatesCordovaWebViewClient(CordovaInterface cordova, CordovaWebView view) {
-        super(cordova, view);
+    public CertificatesCordovaWebViewClient(XWalkWebViewEngine parentEngine) {
+        super(parentEngine);
     }
 
     /**
