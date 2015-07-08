@@ -36,7 +36,7 @@ SOFTWARE.
     <issue>https://github.com/danjarvis/cordova-plugin-crosswalk-certificate/issues</issue>
 
     <engines>
-      <engine name="cordova" version=">=4.0.0" /><!-- Needs cordova/urlutil -->
+      <engine name="cordova-android" version=">=4.0.0" /><!-- Needs cordova/urlutil -->
     </engines>
 
     <js-module src="www/certificate.js" name="Certificates">
