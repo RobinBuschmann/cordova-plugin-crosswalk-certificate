@@ -25,9 +25,7 @@
  */
 
 
-var Certificate = function () {
-
-};
+var Certificate = function () {};
 
 Certificate.prototype = {
     /**
@@ -36,11 +34,11 @@ Certificate.prototype = {
      * @param {Function} boolActivateUnsecure
      *      boolean value to set desired behaviour
      */
-    trustUnsecureCerts: function (boolActivateUnsecure) {
+    trustUnsecureCerts: function (boolActivateUnsecure, successCallback, errorCallback) {
         if (cordova.platformId == 'android')
-            cordova.exec(null, null, 'CertificatesPlugin', 'setUntrusted', [boolActivateUnsecure]);
+            cordova.exec(successCallback, errorCallback, 'CertificatesPlugin', 'setUntrusted', [boolActivateUnsecure]);
         else
-            cordova.exec(null, null, 'CDVCertificate', 'setUntrusted', [boolActivateUnsecure]);
+            cordova.exec(successCallback, errorCallback, 'CDVCertificate', 'setUntrusted', [boolActivateUnsecure]);
     }
 };
 

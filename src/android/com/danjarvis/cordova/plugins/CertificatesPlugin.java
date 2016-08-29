@@ -29,10 +29,7 @@
 package com.danjarvis.cordova.plugins;
 
 import org.apache.cordova.CallbackContext;
-import org.apache.cordova.CordovaActivity;
 import org.apache.cordova.CordovaPlugin;
-import org.apache.cordova.CordovaWebViewImpl;
-import org.apache.cordova.CordovaWebViewEngine;
 import org.json.JSONArray;
 import org.json.JSONException;
 
@@ -42,17 +39,15 @@ import org.crosswalk.engine.XWalkCordovaView;
 import android.util.Log;
 
 /**
- * 
  * Certificate Plugin for Cordova
- * 
+ * <p>
  * authors: Martin Reinhardt on 23.06.14
- *          Daniel Jarvis updated on 2015-05-08
- * 
+ * Daniel Jarvis updated on 2015-05-08
+ * <p>
  * Copyright Martin Reinhardt 2014
  * Copyright Daniel Jarvis 2015
- *
+ * <p>
  * All rights reserved.
- * 
  */
 public class CertificatesPlugin extends CordovaPlugin {
 
@@ -68,43 +63,44 @@ public class CertificatesPlugin extends CordovaPlugin {
 
     /**
      * Executes the request.
-     * 
+     * <p>
      * This method is called from the WebView thread. To do a non-trivial amount
      * of work, use: cordova.getThreadPool().execute(runnable);
-     * 
+     * <p>
      * To run on the UI thread, use:
      * cordova.getActivity().runOnUiThread(runnable);
-     * 
-     * @param action
-     *            The action to execute. (Currently "setUntrusted only")
-     * @param args
-     *            The exec() arguments.
-     * @param callbackContext
-     *            The callback context used when calling back into JavaScript.
+     *
+     * @param action          The action to execute. (Currently "setUntrusted only")
+     * @param args            The exec() arguments.
+     * @param callbackContext The callback context used when calling back into JavaScript.
      * @return Whether the action was valid.
-     * 
-     * 
      */
     @Override
     public boolean execute(String action, JSONArray args,
-            CallbackContext callbackContext) throws JSONException {
-        
-        if (action.equals("setUntrusted")) {
-                allowUntrusted = args.getBoolean(0);
-                cordova.getActivity().runOnUiThread(new Runnable() {
-                        public void run() {
-                            CordovaActivity ca = (CordovaActivity) cordova.getActivity();
-                            XWalkCordovaView view = (XWalkCordovaView)webView.getView();
-                            CertificatesCordovaWebViewClient cWebClient =
-                                new CertificatesCordovaWebViewClient((XWalkWebViewEngine)webView.getEngine());
+                           final CallbackContext callbackContext) throws JSONException {
 
-                            cWebClient.setAllowUntrusted(allowUntrusted);
-                            webView.clearCache();
-                            view.setResourceClient(cWebClient);
-                        }
-                });
-                callbackContext.success();
-                return true;
+        if (action.equals("setUntrusted")) {
+            allowUntrusted = args.getBoolean(0);
+            cordova.getActivity().runOnUiThread(new Runnable() {
+                public void run() {
+                    try {
+
+                        XWalkCordovaView view = (XWalkCordovaView) webView.getView();
+                        CertificatesCordovaWebViewClient cWebClient =
+                                new CertificatesCordovaWebViewClient((XWalkWebViewEngine) webView.getEngine());
+
+                        cWebClient.setAllowUntrusted(allowUntrusted);
+                        webView.clearCache();
+                        view.setResourceClient(cWebClient);
+                        callbackContext.success();
+
+                    } catch (Exception e) {
+
+                        callbackContext.error(e.getMessage());
+                    }
+                }
+            });
+            return true;
         }
         callbackContext.error("Invalid Command");
         return false;
